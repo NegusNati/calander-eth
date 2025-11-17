@@ -1,0 +1,222 @@
+@import 'tailwindcss';
+
+/* Base: teal-green accent #009966  → hsl(160 100% 30%) */
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* ——— Surfaces & text (Light) ——— */
+  --background: 0 0% 100%;
+  --foreground: 160 10% 12%;
+
+  --card: 0 0% 100%;
+  --card-foreground: 160 10% 12%;
+
+  --popover: 0 0% 100%;
+  --popover-foreground: 160 10% 12%;
+
+  /* Primary = brand / accent */
+  --primary: 160 100% 30%; /* #009966 */
+  --primary-foreground: 0 0% 100%;
+
+  /* Secondary = soft minty surfaces */
+  --secondary: 160 45% 94%;
+  --secondary-foreground: 160 35% 25%;
+
+  /* Muted = even softer, for subtle UI */
+  --muted: 160 35% 96%;
+  --muted-foreground: 160 10% 38%;
+
+  /* Accent = interactive hover fills, pills */
+  --accent: 160 55% 92%;
+  --accent-foreground: 160 45% 22%;
+
+  /* Destructive (kept neutral/red for clarity) */
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 100%;
+
+  /* Borders / Inputs / Focus */
+  --border: 160 22% 85%; /* row: borders & separators (light) */
+  --input: 160 22% 85%;
+  --ring: 160 77% 38%; /* vivid teal ring */
+
+  /* Radius (shadcn) */
+  --radius: 0.75rem;
+
+  /* —— Brand scale (Light) ——
+       Mirrors the helper's rows (1–12). Use these freely.
+       1–3: Backgrounds, 4–6: Interactive, 6–8: Borders, 9–10: Solids, 11–12: Accessible text
+    */
+  --brand-1: 160 60% 98%;
+  --brand-2: 160 55% 96%;
+  --brand-3: 160 50% 92%;
+  --brand-4: 160 48% 88%;
+  --brand-5: 160 46% 82%;
+  --brand-6: 160 42% 74%;
+  --brand-7: 160 30% 66%;
+  --brand-8: 160 22% 58%;
+  --brand-9: 160 100% 30%; /* solid brand */
+  --brand-10: 160 80% 40%; /* solid on hover */
+  --brand-11: 160 65% 22%; /* accessible text on brand tints */
+  --brand-12: 160 70% 14%; /* highest-contrast brand text on light */
+}
+
+.dark {
+  /* ——— Surfaces & text (Dark) ——— */
+  --background: 160 20% 6%; /* near #0f1916, image shows deep teal-black */
+  --foreground: 160 20% 96%;
+
+  --card: 160 18% 8%;
+  --card-foreground: 160 20% 96%;
+
+  --popover: 160 18% 8%;
+  --popover-foreground: 160 20% 96%;
+
+  /* Primary stays vibrant for buttons/links */
+  --primary: 160 100% 35%;
+  --primary-foreground: 0 0% 8%; /* near-black text on bright teal */
+
+  /* Secondary = soft raised surfaces in dark */
+  --secondary: 160 14% 16%;
+  --secondary-foreground: 160 18% 80%;
+
+  /* Muted = subtle fills (code blocks, skeletons) */
+  --muted: 160 12% 14%;
+  --muted-foreground: 160 8% 70%;
+
+  /* Accent = hovers/selected in dark */
+  --accent: 160 18% 18%;
+  --accent-foreground: 160 22% 88%;
+
+  /* Destructive */
+  --destructive: 0 70% 50%;
+  --destructive-foreground: 0 0% 100%;
+
+  /* Borders / Inputs / Focus */
+  --border: 160 14% 18%; /* row: borders & separators (dark) */
+  --input: 160 14% 18%;
+  --ring: 160 77% 38%;
+
+  --radius: 0.75rem;
+
+  /* —— Brand scale (Dark) ——
+       1–3: deep backgrounds, 4–6: interactive, 6–8: borders, 9–10: solids, 11–12: accessible text
+    */
+  --brand-1: 160 25% 7%;
+  --brand-2: 160 22% 9%;
+  --brand-3: 160 20% 12%;
+  --brand-4: 160 18% 15%;
+  --brand-5: 160 16% 19%;
+  --brand-6: 160 15% 23%;
+  --brand-7: 160 14% 28%;
+  --brand-8: 160 13% 35%;
+  --brand-9: 160 100% 35%; /* solid brand in dark */
+  --brand-10: 160 80% 45%; /* hover */
+  --brand-11: 160 50% 70%; /* accessible text on dark brand surfaces */
+  --brand-12: 160 60% 93%; /* highest-contrast minty text (seen in image) */
+}
+
+@theme {
+  --font-sans:
+    'Playfair Display', 'Geist', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --font-cursive: 'Brush Script MT', 'Lucida Handwriting', cursive;
+
+  /* Map CSS variables to Tailwind v4 color tokens */
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+
+  /* Optional: brand scale as tokens */
+  --color-brand-1: hsl(var(--brand-1));
+  --color-brand-2: hsl(var(--brand-2));
+  --color-brand-3: hsl(var(--brand-3));
+  --color-brand-4: hsl(var(--brand-4));
+  --color-brand-5: hsl(var(--brand-5));
+  --color-brand-6: hsl(var(--brand-6));
+  --color-brand-7: hsl(var(--brand-7));
+  --color-brand-8: hsl(var(--brand-8));
+  --color-brand-9: hsl(var(--brand-9));
+  --color-brand-10: hsl(var(--brand-10));
+  --color-brand-11: hsl(var(--brand-11));
+  --color-brand-12: hsl(var(--brand-12));
+}
+
+@layer base {
+  /* Tailwind reset for shadcn components */
+  * {
+    @apply border-border;
+    font-family:
+      'Playfair Display', 'Geist', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+      'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Landing-specific helpers; color tokens now come from @theme */
+@layer utilities {
+  /* Landing: teal hero gradient and blobs */
+  .teal-hero {
+    background: linear-gradient(to bottom, hsl(var(--brand-2)) 0%, transparent 60%);
+  }
+  .teal-blob-left {
+    position: absolute;
+    filter: blur(28px);
+    opacity: 0.9;
+    background: radial-gradient(
+      closest-side,
+      hsl(var(--brand-9) / 0.25),
+      hsl(var(--brand-8) / 0.18) 45%,
+      transparent 65%
+    );
+  }
+  .teal-blob-right {
+    position: absolute;
+    filter: blur(28px);
+    opacity: 0.9;
+    background: radial-gradient(
+      closest-side,
+      hsl(var(--brand-9) / 0.22),
+      hsl(var(--brand-7) / 0.16) 40%,
+      transparent 70%
+    );
+  }
+}
+
+@layer base {
+  body {
+    @apply m-0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overscroll-behavior: contain;
+  }
+
+  code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+  }
+}
