@@ -36,6 +36,7 @@ export function ComingSoonDialog({ open, onOpenChange, title }: ComingSoonDialog
             animate={{ rotate: 0 }}
             transition={{ duration: 0.4, type: 'spring' }}
           >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/shhh.svg" alt="Shh gesture" className="h-32 w-auto sm:h-36" />
           </motion.div>
 

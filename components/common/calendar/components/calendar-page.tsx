@@ -350,6 +350,7 @@ export function CalendarPage() {
       {decorVisible && (
         <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden>
           <div className="absolute bottom-[240rem] left-0 ml-2 translate-y-1/4 transform opacity-60 md:hidden md:opacity-90">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/ethiopiac_num_pattern.svg"
               alt=""
@@ -360,6 +361,7 @@ export function CalendarPage() {
             />
           </div>
           <div className="absolute bottom-[160rem] left-0 ml-2 translate-y-1/4 transform opacity-60 md:opacity-90">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/ethiopiac_num_pattern.svg"
               alt=""
@@ -370,6 +372,7 @@ export function CalendarPage() {
             />
           </div>
           <div className="absolute bottom-[60rem] left-0 ml-2 translate-y-1/4 transform opacity-60 md:opacity-90">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/number.webp"
               alt=""

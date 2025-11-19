@@ -88,7 +88,7 @@ export function ConversionCard() {
               className="h-4 w-4 cursor-pointer rounded border-input"
             />
             <label htmlFor="useGeez" className="cursor-pointer text-sm font-medium">
-              Use Ge'ez Numerals
+              Use Ge&apos;ez Numerals
             </label>
           </div>
         </div>

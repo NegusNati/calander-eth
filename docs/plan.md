@@ -7,6 +7,9 @@
 
 > Latest (prod build, Nov 19, 2025): Lighthouse mobile perf 95. Metrics: LCP 2.96s, FCP 1.06s, TTFB 6ms, CLS 0.0002, TBT 2ms, Speed Index 1.06s, TTI 3.25s. LCP no longer blocked by hero art.
 
+Notes:
+- Bundle analyzer available via `pnpm analyze`.
+
 ## Phase 2 — Rendering & Routing
 - [ ] Prefer server components; keep client components only where interactivity is required (calendar UI).
 - [x] Mark static pages with `export const dynamic = 'force-static'` or `revalidate` value. (Home revalidated hourly to keep "today" fresh while cutting TTFB.)
@@ -21,16 +24,17 @@
 - [x] Swap to `next/font` subsets with `display: swap`. (Geist sans/mono now set to `display: 'swap'`.)
 
 ## Phase 4 — CSS & Mobile-First
-- [ ] Audit `globals.css` and key components for mobile-first spacing and layout.
-- [ ] Use clamp-based typography; ensure tap targets ≥ 48px.
-- [ ] Test at 360–430px and 768px widths.
+- [x] Audit `globals.css` and key components for mobile-first spacing and layout. (Code-level audit for 360–430px and 768px: structure should hold; month nav arrows roughly 32px—bump to ≥44px hit area with `min-h/min-w 44px`.)
+- [ ] Use clamp-based typography; ensure tap targets ≥ 48px. (Follow-up: convert main headings/body scales to clamp; enlarge nav buttons to 44–48px.)
+- [ ] Test at 360–430px and 768px widths. (Real device/emulation check still pending once Playwright/browser is available.)
 - [x] Decorative art deferred: hero background art now swaps to lazy CSS backgrounds after idle to avoid LCP impact.
 
 ## Phase 5 — SEO Enhancements
-- [ ] Single `<h1>` per page; semantic heading order.
+ - [x] Single `<h1>` per page; semantic heading order. (Home uses one `<h1>` in hero.)
 - [x] Alt text on images/icons; descriptive titles for controls. (Remaining inline images now decorative or descriptive; hero decor removed.)
 - [x] Add JSON-LD (tool/product) and Open Graph 1200×630 assets. (WebSite JSON-LD injected via layout; OG/Twitter already set.)
 - [ ] Optional: `humans.txt` and `/feed` if updates exist.
+  - [x] Added `/humans.txt` static route with contact info.
 
 ## Phase 6 — Crawler & Bot Access
 - [x] `robots.txt` with `User-agent: *` and sitemap URL; no disallows. (Added in App Router.)
@@ -38,7 +42,7 @@
 - [ ] Middleware only when needed; keep publicly accessible.
 
 ## Phase 7 — Accessibility (SEO-adjacent)
-- [ ] Run `pnpm lint` with Next a11y rules.
+- [x] Run `pnpm lint` with Next a11y rules. (ESLint v9 with eslint-config-next; all clean.)
 - [ ] Keyboard tab/shift-tab navigation works; visible focus states.
 - [ ] Contrast >= 4.5:1 on text/icons.
 

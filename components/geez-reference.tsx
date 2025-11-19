@@ -21,7 +21,7 @@ export function GeezReference() {
 
   return (
     <div className="border-border/60 rounded-2xl border bg-white/60 p-6 shadow-sm backdrop-blur-md supports-[backdrop-filter]:bg-transparent sm:p-8">
-      <h2 className="text-2xl font-semibold tracking-tight">Ge'ez Numeral System</h2>
+      <h2 className="text-2xl font-semibold tracking-tight">Ge&apos;ez Numeral System</h2>
       <p className="text-muted-foreground mt-2 text-sm">
         Traditional Ethiopian numerals used in cultural and liturgical contexts
       </p>
@@ -63,7 +63,7 @@ export function GeezReference() {
 
       <div className="mt-6 p-4 bg-secondary/30 rounded-lg">
         <p className="text-sm text-foreground">
-          <strong>Pro tip:</strong> Combine Ge'ez numerals from largest to smallest. For example: ፳፻፲፫ = 2013 EC (፳ = 20, ፻ = 100, so 20 × 100 = 2000, then ፲፫ adds 13).
+          <strong>Pro tip:</strong> Combine Ge&apos;ez numerals from largest to smallest. For example: ፳፻፲፫ = 2013 EC (፳ = 20, ፻ = 100, so 20 × 100 = 2000, then ፲፫ adds 13).
         </p>
       </div>
     </div>

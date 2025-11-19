@@ -107,6 +107,7 @@ const Footer = () => {
               whileHover={{ x: 5 }}
               whileTap={{ scale: 0.95 }}
             >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/telegram-logo.svg" alt="Telegram" className="h-6 w-6" />
               <span className="text-muted-foreground hover:text-primary font-medium">
                 Join Telegram Group
