@@ -4,7 +4,8 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    unoptimized: true,
+    // Use Next image optimizer for local assets; add remotePatterns if loading external hosts.
+    unoptimized: false,
   },
   turbopack: {},
   webpack(config) {

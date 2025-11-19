@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
+import Script from 'next/script'
+import { Analytics } from '@vercel/analytics/react'
 import './globals.css'
 import Footer from '@/components/common/calendar/components/footer'
 
@@ -10,11 +12,13 @@ const siteName = 'Ethiopian Calendar Converter'
 const geistSans = Geist({
   subsets: ['latin'],
   variable: '--font-geist-sans',
+  display: 'swap',
 })
 
 const geistMono = Geist_Mono({
   subsets: ['latin'],
   variable: '--font-geist-mono',
+  display: 'swap',
 })
 
 export const metadata: Metadata = {
@@ -99,6 +103,19 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: siteName,
+    url: siteUrl,
+    description: metadata.description,
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: `${siteUrl}/?q={search_term_string}`,
+      'query-input': 'required name=search_term_string',
+    },
+  }
+
   return (
     <html lang="en">
       <body
@@ -113,6 +130,13 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        <Script
+          id="structured-data"
+          type="application/ld+json"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
+        <Analytics />
       </body>
     </html>
   )

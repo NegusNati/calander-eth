@@ -134,7 +134,7 @@ export function CalendarPage() {
   const [viewYear, setViewYear] = React.useState(today.year)
   const [viewMonth, setViewMonth] = React.useState(today.month)
   const [selectedDate, setSelectedDate] = React.useState<EthiopicDate>(today)
-  const [useGeezDigits, setUseGeezDigits] = React.useState(true)
+  const [useGeezDigits, setUseGeezDigits] = React.useState(false)
   const [viewMode, setViewMode] = React.useState<'month' | 'week'>('month')
   const [shouldFlashCard, setShouldFlashCard] = React.useState(false)
   const selectedCardRef = React.useRef<HTMLDivElement | null>(null)
@@ -285,7 +285,7 @@ export function CalendarPage() {
     setViewYear(today.year)
     setViewMonth(today.month)
     handleSelectDate(today)
-    setUseGeezDigits(true)
+    setUseGeezDigits(false)
   }
 
   function goToPreviousMonth() {
@@ -326,15 +326,7 @@ export function CalendarPage() {
 
   return (
     <section className="relative py-14 sm:py-20">
-      <div className="absolute bottom-[240rem] left-0 z-0 ml-2 translate-y-1/4 transform opacity-60 md:hidden md:opacity-90">
-        <img src="/ethiopiac_num_pattern.svg" alt="logo" className="h-150 w-150" />
-      </div>
-      <div className="absolute bottom-[160rem] left-0 z-0 ml-2 translate-y-1/4 transform opacity-60 md:opacity-90">
-        <img src="/ethiopiac_num_pattern.svg" alt="logo" className="h-150 w-150" />
-      </div>
-      <div className="absolute bottom-[60rem] left-0 z-0 ml-2 translate-y-1/4 transform opacity-60 md:opacity-90">
-        <img src="/number.webp" alt="logo" className="h-150 w-150" />
-      </div>
+      {/* Decorative background shapes removed to keep hero LCP focused on content */}
       <div className="absolute inset-0" aria-hidden />
       <div
         className="teal-blob-left top-[-10rem] left-[-16rem] h-[24rem] w-[28rem] md:top-[-12rem] md:left-[-20rem]"
