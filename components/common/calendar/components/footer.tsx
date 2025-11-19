@@ -1,9 +1,10 @@
+'use client'
+
 import { motion } from 'framer-motion'
 import { GithubIcon, InstagramIcon, LinkedinIcon, MegaphoneIcon, TwitterIcon } from 'lucide-react'
 import { useState } from 'react'
 
-import telegramIcon from '@/assets/logos/telegram-logo.svg'
-import { ComingSoonDialog } from '@/shared/ui/coming-soon-dialog'
+import { ComingSoonDialog } from './comming-soon'
 
 const Footer = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false)
@@ -106,7 +107,7 @@ const Footer = () => {
               whileHover={{ x: 5 }}
               whileTap={{ scale: 0.95 }}
             >
-              <img src={telegramIcon} alt="Telegram" className="h-6 w-6" />
+              <img src="/telegram-logo.svg" alt="Telegram" className="h-6 w-6" />
               <span className="text-muted-foreground hover:text-primary font-medium">
                 Join Telegram Group
               </span>

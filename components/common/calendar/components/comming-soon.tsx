@@ -1,13 +1,12 @@
 import { motion } from 'framer-motion'
 
-import ShhhImage from '@/assets/landingImages/shhh.svg'
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from '@/shared/ui/dialog'
+} from '@/components/ui/dialog'
 
 interface ComingSoonDialogProps {
   open: boolean
@@ -37,7 +36,7 @@ export function ComingSoonDialog({ open, onOpenChange, title }: ComingSoonDialog
             animate={{ rotate: 0 }}
             transition={{ duration: 0.4, type: 'spring' }}
           >
-            <img src={ShhhImage} alt="Shh gesture" className="h-32 w-auto sm:h-36" />
+            <img src="/shhh.svg" alt="Shh gesture" className="h-32 w-auto sm:h-36" />
           </motion.div>
 
           {/* Text */}
