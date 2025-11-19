@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
-import shaderBgUrl from '../public/shader_bg.svg'
 
 const siteUrl = 'https://ethiopian-calendar.app'
 const siteName = 'Ethiopian Calendar Converter'
@@ -101,25 +100,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.className} ${geistMono.variable} font-sans antialiased`}
+        className={`${geistSans.className} ${geistMono.variable} font-sans antialiased bg-gradient-to-b from-brand-1 to-background`}
       >
-
-           <main id="main" className="relative z-0 w-full">
-        {/* Absolutely positioned background image at the top */}
+        {/* Global shader background behind all pages */}
         <div
           aria-hidden
-          className="pointer-events-none absolute top-[-2rem] left-0 -z-10 h-[720px] w-full border-none"
-          style={{
-            backgroundImage: `url(${shaderBgUrl})`,
-            backgroundRepeat: 'no-repeat',
-            backgroundSize: 'cover',
-            backgroundPosition: 'top',
-            width: '100%',
-            height: '1120px',
-          }}
+          className="pointer-events-none fixed inset-0 -z-10 w-full bg-[url('/shader_bg.svg')] bg-top bg-no-repeat bg-cover"
         />
-        {children}
-      </main>
+        <main id="main" className="relative z-0 w-full min-h-screen">
+          {children}
+        </main>
       </body>
     </html>
   )

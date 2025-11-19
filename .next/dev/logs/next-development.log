@@ -1,5 +1,5 @@
-[00:00:00.500] Server  LOG      ✓ Ready in 326ms
-[00:00:04.009] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+[00:01:16.748] Server  LOG      ✓ Ready in 76.6s
+[00:01:20.032] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
 
 - A server/client branch `if (typeof window !== 'undefined')`.
 - Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
@@ -30,7 +30,46 @@ It can also happen if the client has a browser extension installed which messes 
                         <html lang="en">
                           <body
                             className="geist_dd5f33c6-module__WggDGG__className geist_mono_d6617093-module__z61v7q__va..."
--                           __processed_f2faf863-378d-4f4f-b868-6c50840fc1b9__="true"
+-                           bis_register="W3sibWFzdGVyIjp0cnVlLCJleHRlbnNpb25JZCI6InBwaGdkYmdsZGxtaWNmZGtob25kbGFma2lv..."
+-                           __processed_d4e47ff7-61e1-45d4-8f10-b3814bd0ae72__="true"
+                          >
+                  ...
+
+[00:04:48.491] Server  ERROR    ⨯ ReferenceError: shaderBgUrl is not defined
+[00:04:48.509] Server  ERROR    ⨯ ReferenceError: shaderBgUrl is not defined
+[00:04:48.620] Browser ERROR   uncaughtError: ReferenceError: shaderBgUrl is not defined
+[00:04:50.744] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  ...
+    <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
+      <AppDevOverlayErrorBoundary globalError={[...]}>
+        <ReplaySsrOnlyErrors>
+        <DevRootHTTPAccessFallbackBoundary>
+          <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
+            <HTTPAccessFallbackErrorBoundary pathname="/" notFound={<NotAllowedRootHTTPFallbackError>} ...>
+              <RedirectBoundary>
+                <RedirectErrorBoundary router={{...}}>
+                  <Head>
+                  <__next_root_layout_boundary__>
+                    <SegmentViewNode type="layout" pagePath="layout.tsx">
+                      <SegmentTrieNode>
+                      <link>
+                      <script>
+                      <RootLayout>
+                        <html lang="en">
+                          <body
+                            className="geist_dd5f33c6-module__WggDGG__className geist_mono_d6617093-module__z61v7q__va..."
+-                           __processed_5143a798-dc8f-440b-9d16-8e2505095268__="true"
 -                           bis_register="W3sibWFzdGVyIjp0cnVlLCJleHRlbnNpb25JZCI6InBwaGdkYmdsZGxtaWNmZGtob25kbGFma2lv..."
                           >
                   ...
