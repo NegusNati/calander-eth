@@ -3,6 +3,7 @@
 # dependencies
 node_modules
 /node_modules
+.pnpm-store
 /.pnp
 .pnp.js
 .yarn/install-state.gz
@@ -44,4 +45,3 @@ next-env.d.ts
 
 
 .next/
-

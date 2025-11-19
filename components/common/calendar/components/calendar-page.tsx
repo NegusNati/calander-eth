@@ -23,7 +23,7 @@ import { Button } from '../button'
 import AdSlot from '@/components/ui/ad-slot'
 
 const YEAR_WINDOW = 60
-
+type IdleHandle = ReturnType<typeof setTimeout> | number
 function useTodayEthiopianDate(): EthiopicDate {
   return React.useMemo(() => getToday('ethiopic') as EthiopicDate, [])
 }
@@ -137,8 +137,29 @@ export function CalendarPage() {
   const [useGeezDigits, setUseGeezDigits] = React.useState(false)
   const [viewMode, setViewMode] = React.useState<'month' | 'week'>('month')
   const [shouldFlashCard, setShouldFlashCard] = React.useState(false)
+  const [decorVisible, setDecorVisible] = React.useState(false)
   const selectedCardRef = React.useRef<HTMLDivElement | null>(null)
   const flashTimeoutRef = React.useRef<number | null>(null)
+
+  React.useEffect(() => {
+    if (typeof window === 'undefined') return
+    const show = () => setDecorVisible(true)
+    const anyWindow = window as typeof window & {
+      requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => IdleHandle
+      cancelIdleCallback?: (handle: IdleHandle) => void
+    }
+    const handle: IdleHandle = anyWindow.requestIdleCallback
+      ? anyWindow.requestIdleCallback(show, { timeout: 1200 })
+      : window.setTimeout(show, 700)
+
+    return () => {
+      if (anyWindow.cancelIdleCallback) {
+        anyWindow.cancelIdleCallback(handle)
+      } else {
+        window.clearTimeout(handle as ReturnType<typeof setTimeout>)
+      }
+    }
+  }, [])
 
   const focusSelectedCard = React.useCallback(() => {
     if (typeof window === 'undefined') return
@@ -326,7 +347,40 @@ export function CalendarPage() {
 
   return (
     <section className="relative py-14 sm:py-20">
-      {/* Decorative background shapes removed to keep hero LCP focused on content */}
+      {decorVisible && (
+        <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden>
+          <div className="absolute bottom-[240rem] left-0 ml-2 translate-y-1/4 transform opacity-60 md:hidden md:opacity-90">
+            <img
+              src="/ethiopiac_num_pattern.svg"
+              alt=""
+              role="presentation"
+              loading="lazy"
+              decoding="async"
+              className="h-150 w-150"
+            />
+          </div>
+          <div className="absolute bottom-[160rem] left-0 ml-2 translate-y-1/4 transform opacity-60 md:opacity-90">
+            <img
+              src="/ethiopiac_num_pattern.svg"
+              alt=""
+              role="presentation"
+              loading="lazy"
+              decoding="async"
+              className="h-150 w-150"
+            />
+          </div>
+          <div className="absolute bottom-[60rem] left-0 ml-2 translate-y-1/4 transform opacity-60 md:opacity-90">
+            <img
+              src="/number.webp"
+              alt=""
+              role="presentation"
+              loading="lazy"
+              decoding="async"
+              className="h-150 w-150"
+            />
+          </div>
+        </div>
+      )}
       <div className="absolute inset-0" aria-hidden />
       <div
         className="teal-blob-left top-[-10rem] left-[-16rem] h-[24rem] w-[28rem] md:top-[-12rem] md:left-[-20rem]"

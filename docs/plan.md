@@ -1,9 +1,11 @@
 # Performance, SEO, and SSR Plan
 
 ## Phase 1 — Baseline & Goals
-- [x] Run Lighthouse (mobile) on `/` in `pnpm dev` and note LCP/TTFB/CLS. (Nov 19, 2025 via `chrome@142` "Chrome for Testing" cache + `npx lighthouse`; score 63. Metrics: LCP 7.29s, FCP 1.07s, TTFB 2.40s, CLS 0.0002, TBT 447ms, Speed Index 4.03s, TTI 7.99s. LCP asset is `ethiopiac_num_pattern.svg` hero logo; breakdown shows TTFB dominating LCP (2.4s of 7.3s). Total payload ~1.2 MB across 33 requests.)
+- [x] Run Lighthouse (mobile) on `/` in `pnpm dev` and note LCP/TTFB/CLS. (Nov 19, 2025 via `chrome@142` "Chrome for Testing" cache + `npx lighthouse`; score 63. Metrics: LCP 7.29s, FCP 1.07s, TTFB 2.40s, CLS 0.0002, TBT 447ms, Speed Index 4.03s, TTI 7.99s. LCP asset was `ethiopiac_num_pattern.svg` hero logo; breakdown showed TTFB dominating.)
 - [x] Set budgets: LCP < 2.5s, TTFB < 200ms (edge), CLS < 0.1. (Nov 19, 2025)
 - [x] List routes and critical assets (fonts, SVGs, hero images). (Routes: `/` only; critical assets: `public/placeholder.jpg`, `placeholder.svg/.png`, `icon*.png/.svg`, `shader_bg.svg`, `ethiopiac_num_pattern.svg`; fonts via `next/font` Geist sans/mono.)
+
+> Latest (prod build, Nov 19, 2025): Lighthouse mobile perf 95. Metrics: LCP 2.96s, FCP 1.06s, TTFB 6ms, CLS 0.0002, TBT 2ms, Speed Index 1.06s, TTI 3.25s. LCP no longer blocked by hero art.
 
 ## Phase 2 — Rendering & Routing
 - [ ] Prefer server components; keep client components only where interactivity is required (calendar UI).
@@ -22,6 +24,7 @@
 - [ ] Audit `globals.css` and key components for mobile-first spacing and layout.
 - [ ] Use clamp-based typography; ensure tap targets ≥ 48px.
 - [ ] Test at 360–430px and 768px widths.
+- [x] Decorative art deferred: hero background art now swaps to lazy CSS backgrounds after idle to avoid LCP impact.
 
 ## Phase 5 — SEO Enhancements
 - [ ] Single `<h1>` per page; semantic heading order.
@@ -30,7 +33,7 @@
 - [ ] Optional: `humans.txt` and `/feed` if updates exist.
 
 ## Phase 6 — Crawler & Bot Access
-- [ ] `robots.txt` with `User-agent: *` and sitemap URL; no disallows.
+- [x] `robots.txt` with `User-agent: *` and sitemap URL; no disallows. (Added in App Router.)
 - [ ] Verify 200 responses for key pages; avoid bot-blocking headers.
 - [ ] Middleware only when needed; keep publicly accessible.
 
@@ -41,7 +44,7 @@
 
 ## Phase 8 — Observability
 - [x] Add Lighthouse CI or automated Web Vitals via `@vercel/analytics`. (Analytics client wired in layout.)
-- [ ] Add bundle analyzer script for PRs.
+- [x] Add bundle analyzer script for PRs. (`pnpm analyze` runs `ANALYZE=true next build` with @next/bundle-analyzer.)
 - [ ] Use preview deploys to validate perf/SEO before merge.
 
 ## Phase 9 — Deployment
