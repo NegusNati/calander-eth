@@ -346,7 +346,7 @@ export function CalendarPage() {
   }
 
   return (
-    <section className="relative py-14 sm:py-20">
+    <section className="relative overflow-hidden py-14 sm:py-20">
       {decorVisible && (
         <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden>
           <div className="absolute bottom-[240rem] left-0 ml-2 translate-y-1/4 transform opacity-60 md:hidden md:opacity-90">
