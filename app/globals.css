@@ -207,6 +207,22 @@
       transparent 70%
     );
   }
+
+  /* Mobile-specific utilities */
+  .safe-area-top {
+    padding-top: env(safe-area-inset-top);
+  }
+  .safe-area-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .touch-target-min {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  .mobile-scroll {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
 }
 
 @layer base {

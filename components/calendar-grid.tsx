@@ -34,7 +34,7 @@ export function CalendarGrid() {
   const monthName = ETHIOPIAN_MONTHS[month - 1]?.english ?? ''
 
   return (
-    <div className="border-border/60 rounded-2xl border bg-white/60 p-6 shadow-sm backdrop-blur-md supports-[backdrop-filter]:bg-transparent sm:p-8">
+    <div className="border-border/60 rounded-2xl border bg-white/60 p-4 shadow-sm backdrop-blur-md supports-[backdrop-filter]:bg-transparent sm:p-6 lg:p-8">
       <div className="flex items-center justify-between mb-6">
         <div>
           <h2 className="text-2xl font-semibold tracking-tight">
@@ -66,9 +66,12 @@ export function CalendarGrid() {
 
       <div className="space-y-3">
         {/* Weekday headers */}
-        <div className="text-muted-foreground grid grid-cols-7 gap-1 text-center text-xs font-medium tracking-widest uppercase">
+        <div className="text-muted-foreground grid grid-cols-7 gap-1 text-center text-xs font-medium tracking-widest uppercase sm:gap-2">
           {WEEKDAYS.map((day) => (
-            <span key={day}>{day}</span>
+            <span key={day} className="hidden sm:block">{day}</span>
+          ))}
+          {WEEKDAYS.map((day, index) => (
+            <span key={index} className="block sm:hidden">{day.charAt(0)}</span>
           ))}
         </div>
 
@@ -77,7 +80,7 @@ export function CalendarGrid() {
           {days.map((day) => (
             <button
               key={day}
-              className="bg-secondary/50 hover:bg-secondary text-foreground flex min-h-12 items-center justify-center rounded-lg border border-border/50 text-sm font-medium transition"
+              className="bg-secondary/50 hover:bg-secondary text-foreground flex min-h-[44px] sm:min-h-12 items-center justify-center rounded-lg border border-border/50 text-xs sm:text-sm font-medium transition"
               aria-label={`${monthName} ${day}, ${year}`}
             >
               {day}

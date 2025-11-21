@@ -394,22 +394,22 @@ export function CalendarPage() {
         aria-hidden
       />
       <Container className="relative z-[1] flex flex-col gap-8">
-        <header className="border-border/60 rounded-2xl border bg-white/60 px-5 py-6 shadow-sm backdrop-blur-md supports-[backdrop-filter]:bg-transparent sm:px-8 sm:py-7">
+        <header className="border-border/60 rounded-2xl border bg-white/60 px-4 py-4 shadow-sm backdrop-blur-md supports-[backdrop-filter]:bg-transparent sm:px-6 sm:py-6">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
+              <h1 className="text-xl font-semibold tracking-tight sm:text-2xl lg:text-3xl">
                 Ethiopian Calendar
               </h1>
               <p className="text-muted-foreground mt-1 text-sm sm:text-base">
                 Check out the date, holidays and wengalat
               </p>
             </div>
-            <div className="min-w-[220px]">
+            <div className="w-full sm:w-auto sm:min-w-[220px]">
               <Select
                 value={useGeezDigits ? 'geez' : 'arabic'}
                 onValueChange={(v) => setUseGeezDigits(v === 'geez')}
               >
-                <SelectTrigger className="bg-muted/80 backdrop-blur-sm">
+                <SelectTrigger className="bg-muted/80 backdrop-blur-sm w-full sm:w-auto">
                   <SelectValue placeholder="Use Geeʼz Numbers" />
                 </SelectTrigger>
                 <SelectContent>
@@ -421,9 +421,9 @@ export function CalendarPage() {
           </div>
         </header>
 
-        <div className="grid gap-8 lg:grid-cols-[minmax(0,1.85fr)_minmax(0,1fr)]">
-          <div className="border-border/60 rounded-2xl border bg-transparent p-6 shadow-sm backdrop-blur-lg supports-[backdrop-filter]:bg-transparent">
-            <div className="flex flex-col gap-6 p-5 sm:p-8">
+        <div className="grid gap-6 lg:gap-8 lg:grid-cols-[minmax(0,1.85fr)_minmax(0,1fr)]">
+          <div className="border-border/60 rounded-2xl border bg-transparent p-4 shadow-sm backdrop-blur-lg supports-[backdrop-filter]:bg-transparent sm:p-6">
+            <div className="flex flex-col gap-4 p-3 sm:p-5 sm:gap-6">
               {/* Month navigation */}
               <div className="flex items-center justify-between">
                 <Button
@@ -504,55 +504,110 @@ export function CalendarPage() {
               </div>
 
               {viewMode === 'month' ? (
-                <div className="hidden items-center gap-3 sm:flex">
-                  <label
-                    htmlFor="month-select"
-                    className="text-muted-foreground text-xs font-medium tracking-[0.25em] uppercase"
-                  >
-                    Month
-                  </label>
-                  <select
-                    id="month-select"
-                    value={viewMonth}
-                    onChange={(event) => setViewMonth(Number(event.target.value))}
-                    className="border-input bg-background focus:ring-ring rounded-md border px-4 py-2 text-sm shadow-sm focus:ring-2 focus:outline-none"
-                  >
-                    {ETHIOPIAN_MONTHS.map((month) => (
-                      <option key={month.number} value={month.number}>
-                        {month.english} · {month.amharic}
-                      </option>
-                    ))}
-                  </select>
-                  <label
-                    htmlFor="year-select"
-                    className="text-muted-foreground text-xs font-medium tracking-[0.25em] uppercase"
-                  >
-                    Year
-                  </label>
-                  <select
-                    id="year-select"
-                    value={viewYear}
-                    onChange={(event) => setViewYear(Number(event.target.value))}
-                    className="border-input bg-background focus:ring-ring rounded-md border px-4 py-2 text-sm shadow-sm focus:ring-2 focus:outline-none"
-                  >
-                    {years.map((year) => {
-                      const label = useGeezDigits
-                        ? `${toGeezNumeral(year)} · ${year}`
-                        : `${year} · ${toGeezNumeral(year)}`
-                      return (
-                        <option key={year} value={year}>
-                          {label}
+                <>
+                  {/* Mobile: Compact selects */}
+                  <div className="flex flex-col gap-3 sm:hidden">
+                    <div className="flex items-center gap-2">
+                      <label
+                        htmlFor="month-select-mobile"
+                        className="text-muted-foreground text-xs font-medium tracking-[0.25em] uppercase whitespace-nowrap"
+                      >
+                        Month
+                      </label>
+                      <select
+                        id="month-select-mobile"
+                        value={viewMonth}
+                        onChange={(event) => setViewMonth(Number(event.target.value))}
+                        className="border-input bg-background focus:ring-ring flex-1 rounded-md border px-3 py-2 text-sm shadow-sm focus:ring-2 focus:outline-none"
+                      >
+                        {ETHIOPIAN_MONTHS.map((month) => (
+                          <option key={month.number} value={month.number}>
+                            {month.english}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <label
+                        htmlFor="year-select-mobile"
+                        className="text-muted-foreground text-xs font-medium tracking-[0.25em] uppercase whitespace-nowrap"
+                      >
+                        Year
+                      </label>
+                      <select
+                        id="year-select-mobile"
+                        value={viewYear}
+                        onChange={(event) => setViewYear(Number(event.target.value))}
+                        className="border-input bg-background focus:ring-ring flex-1 rounded-md border px-3 py-2 text-sm shadow-sm focus:ring-2 focus:outline-none"
+                      >
+                        {years.map((year) => {
+                          const label = useGeezDigits
+                            ? `${toGeezNumeral(year)} · ${year}`
+                            : `${year} · ${toGeezNumeral(year)}`
+                          return (
+                            <option key={year} value={year}>
+                              {label}
+                            </option>
+                          )
+                        })}
+                      </select>
+                    </div>
+                  </div>
+
+                  {/* Desktop: Side-by-side selects */}
+                  <div className="hidden items-center gap-3 sm:flex">
+                    <label
+                      htmlFor="month-select"
+                      className="text-muted-foreground text-xs font-medium tracking-[0.25em] uppercase"
+                    >
+                      Month
+                    </label>
+                    <select
+                      id="month-select"
+                      value={viewMonth}
+                      onChange={(event) => setViewMonth(Number(event.target.value))}
+                      className="border-input bg-background focus:ring-ring rounded-md border px-4 py-2 text-sm shadow-sm focus:ring-2 focus:outline-none"
+                    >
+                      {ETHIOPIAN_MONTHS.map((month) => (
+                        <option key={month.number} value={month.number}>
+                          {month.english} · {month.amharic}
                         </option>
-                      )
-                    })}
-                  </select>
-                </div>
+                      ))}
+                    </select>
+                    <label
+                      htmlFor="year-select"
+                      className="text-muted-foreground text-xs font-medium tracking-[0.25em] uppercase"
+                    >
+                      Year
+                    </label>
+                    <select
+                      id="year-select"
+                      value={viewYear}
+                      onChange={(event) => setViewYear(Number(event.target.value))}
+                      className="border-input bg-background focus:ring-ring rounded-md border px-4 py-2 text-sm shadow-sm focus:ring-2 focus:outline-none"
+                    >
+                      {years.map((year) => {
+                        const label = useGeezDigits
+                          ? `${toGeezNumeral(year)} · ${year}`
+                          : `${year} · ${toGeezNumeral(year)}`
+                        return (
+                          <option key={year} value={year}>
+                            {label}
+                          </option>
+                        )
+                      })}
+                    </select>
+                  </div>
+                </>
               ) : null}
 
               <div className="space-y-3">
-                <div className="text-muted-foreground grid grid-cols-7 gap-1 text-center text-xs font-medium tracking-[0.2em] uppercase">
+                <div className="text-muted-foreground grid grid-cols-7 gap-1 text-center text-xs font-medium tracking-[0.2em] sm:gap-2">
                   {WEEKDAYS.map((day) => (
-                    <span key={day}>{day}</span>
+                    <span key={day} className="hidden sm:block">{day}</span>
+                  ))}
+                  {WEEKDAYS.map((day, index) => (
+                    <span key={index} className="block sm:hidden">{day.charAt(0)}</span>
                   ))}
                 </div>
                 <div className="grid grid-cols-7 gap-0.5 sm:gap-2">
@@ -574,7 +629,7 @@ export function CalendarPage() {
                       highlightNames ? `. Holidays: ${highlightNames}` : ''
                     }`
                     const buttonClasses = [
-                      'focus-visible:ring-ring relative flex min-h-[72px] flex-col justify-between rounded-xl border px-2 py-2 text-left text-sm transition focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
+                      'focus-visible:ring-ring relative flex min-h-[44px] sm:min-h-[72px] flex-col justify-between rounded-xl border px-2 py-2 text-left text-xs sm:text-sm transition focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
                       isSelected
                         ? 'border-primary bg-primary text-primary-foreground shadow'
                         : isToday
@@ -626,6 +681,63 @@ export function CalendarPage() {
                       </button>
                     )
                   })}
+                </div>
+              </div>
+
+              {/* Mobile List View */}
+              <div className="block lg:hidden">
+                <div className="mt-6">
+                  <h3 className="text-foreground text-lg font-semibold tracking-tight mb-4">
+                    Days of {ETHIOPIAN_MONTHS[viewMonth - 1]?.amharic} {useGeezDigits ? toGeezNumeral(viewYear) : viewYear}
+                  </h3>
+                  <div className="space-y-2 max-h-96 overflow-y-auto mobile-scroll">
+                    {visibleCells
+                      .filter(({ date }) => date.day > 0)
+                      .map(({ date, gregorian, isCurrentMonth }) => {
+                        const isToday = isSameDate(date, today)
+                        const isSelected = isSameDate(date, selectedDate)
+                        const showGeez = useGeezDigits && date.day > 0
+                        const dayDisplay = showGeez ? toGeezNumeral(date.day) : String(date.day)
+                        const gregDate = new Date(
+                          Date.UTC(gregorian.year, gregorian.month - 1, gregorian.day),
+                        )
+                        const gregDay = gregDate.getUTCDate()
+                        const highlightList = visibleHighlightLookup.get(createDateKey(date)) ?? []
+                        const hasHighlights = highlightList.length > 0
+                        
+                        return (
+                          <button
+                            key={`${date.year}-${date.month}-${date.day}`}
+                            type="button"
+                            onClick={() => handleSelectDate({ ...date })}
+                            className={`w-full text-left p-3 rounded-lg border transition touch-target-min ${
+                              isSelected
+                                ? 'border-primary bg-primary text-primary-foreground'
+                                : isToday
+                                  ? 'border-border bg-muted/70'
+                                  : 'border-border bg-card/70 hover:bg-muted/80'
+                            } ${!isCurrentMonth && !isSelected ? 'text-muted-foreground' : ''}`}
+                          >
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center gap-3">
+                                <span className="font-medium text-base">{dayDisplay}</span>
+                                <span className="text-sm text-muted-foreground">
+                                  {formatGregorianDate(gregorian)}
+                                </span>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                {hasHighlights && (
+                                  <span className="w-2 h-2 bg-primary rounded-full" aria-hidden />
+                                )}
+                                {isToday && (
+                                  <span className="text-xs font-medium text-primary">Today</span>
+                                )}
+                              </div>
+                            </div>
+                          </button>
+                        )
+                      })}
+                  </div>
                 </div>
               </div>
             </div>
