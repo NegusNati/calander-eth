@@ -9,11 +9,11 @@ import { ComingSoonDialog } from './comming-soon'
 const Footer = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const services = [
-    { name: 'Advertisement', href: '/advertisement-requests' },
-    { name: 'Passport Check', href: '/passports' },
-    { name: 'Ethiopian Calendar', href: '/calendar' },
-    { name: "Gee'z Numbers", href: '/calendar#geez-numbers' },
-    { name: 'Amharic Alphabets', href: '/articles' },
+    { name: 'Advertisement', href: 'https://www.passport.et/advertisment' },
+    { name: 'Passport Check', href: 'https://www.passport.et/passports' },
+    // { name: 'Ethiopian Calendar', href: '/calendar' },
+    { name: "Gee'z Numbers", href: '#geez-numbers' },
+    { name: 'Articles', href: 'https://www.passport.et/articles' },
   ]
 
   const socials = [
@@ -77,7 +77,7 @@ const Footer = () => {
           transition={{ duration: 1, delay: 0.3 }}
           viewport={{ once: true }}
         >
-          Passport.ET
+          Ethiopian
         </motion.div>
       </div>
 
@@ -92,10 +92,10 @@ const Footer = () => {
                 whileHover={{ scale: 1.02 }}
                 transition={{ type: 'spring', stiffness: 300 }}
               >
-                Passport.ET
+                Ethiopian Calendar
               </motion.h2>
               <p className="text-muted-foreground text-sm leading-relaxed">
-                No more wasted trips. Know your passport status instantly.
+                Know your date instantly.
               </p>
             </div>
 
