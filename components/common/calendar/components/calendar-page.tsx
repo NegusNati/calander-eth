@@ -555,7 +555,7 @@ export function CalendarPage() {
                     <span key={day}>{day}</span>
                   ))}
                 </div>
-                <div className="grid grid-cols-7 gap-1 sm:gap-2">
+                <div className="grid grid-cols-7 gap-0.5 sm:gap-2">
                   {visibleCells.map(({ date, gregorian, isCurrentMonth }) => {
                     const isToday = isSameDate(date, today)
                     const isSelected = isSameDate(date, selectedDate)

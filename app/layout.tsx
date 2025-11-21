@@ -1,23 +1,15 @@
 import type { Metadata, Viewport } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
-import Script from 'next/script'
-import { Analytics } from '@vercel/analytics/react'
+import { Playfair_Display } from 'next/font/google'
 import './globals.css'
 import Footer from '@/components/common/calendar/components/footer'
+import ServiceWorkerRegister from '@/components/common/pwa/service-worker-register'
 
 const siteUrl = 'https://ethiopian-calendar.app'
 const siteName = 'Ethiopian Calendar Converter'
 
-
-const geistSans = Geist({
+const playfair = Playfair_Display({
   subsets: ['latin'],
-  variable: '--font-geist-sans',
-  display: 'swap',
-})
-
-const geistMono = Geist_Mono({
-  subsets: ['latin'],
-  variable: '--font-geist-mono',
+  variable: '--font-playfair',
   display: 'swap',
 })
 
@@ -119,7 +111,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.className} ${geistMono.variable} font-sans antialiased bg-gradient-to-b from-brand-1 to-background`}
+        className={`${playfair.className} font-sans antialiased bg-gradient-to-b from-brand-1 to-background`}
       >
         {/* Global shader background behind all pages */}
         <div
@@ -129,14 +121,8 @@ export default function RootLayout({
         <main id="main" className="relative z-0 w-full min-h-screen">
           {children}
         </main>
+        <ServiceWorkerRegister />
         <Footer />
-        <Script
-          id="structured-data"
-          type="application/ld+json"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-        />
-        <Analytics />
       </body>
     </html>
   )
