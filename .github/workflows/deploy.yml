@@ -21,9 +21,24 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Ping host
+      - name: Connectivity check (DNS + SSH port)
         run: |
-          ping -c 3 "${{ secrets.DEPLOY_HOST }}"
+          set -e
+          HOST="${{ secrets.DEPLOY_HOST }}"
+          PORT="${{ secrets.DEPLOY_PORT }}"
+          PORT="${PORT:-22}"
+
+          echo "Host: $HOST"
+          echo "Port: $PORT"
+
+          echo "ICMP ping (may fail if firewall blocks ICMP)..."
+          ping -c 3 "$HOST" || echo "Ping failed (ICMP likely blocked); continuing to TCP check."
+
+          echo "DNS resolution:"
+          getent ahosts "$HOST"
+
+          echo "TCP reachability on port $PORT:"
+          nc -z -v -w 5 "$HOST" "$PORT"
 
       - name: Deploy to VPS
         uses: appleboy/ssh-action@v1.0.3
