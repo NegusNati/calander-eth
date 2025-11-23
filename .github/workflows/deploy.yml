@@ -21,6 +21,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Ping host
+        run: |
+          ping -c 3 "${{ secrets.DEPLOY_HOST }}"
+
       - name: Deploy to VPS
         uses: appleboy/ssh-action@v1.0.3
         with:
