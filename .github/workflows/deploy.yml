@@ -50,7 +50,7 @@ jobs:
           script: |
             set -euo pipefail
 
-            DEPLOY_PATH="${DEPLOY_PATH:-/opt/passport/calendar-frontend}"
+            DEPLOY_PATH="${DEPLOY_PATH:-/opt/passport/calendar-frontend/calander-eth}"
             SERVICE_NAME="${SERVICE_NAME:-calendar-frontend}"
             PROXY_NETWORK="${PROXY_NETWORK:-web}"
             GIT_BRANCH="${GIT_BRANCH:-main}"
