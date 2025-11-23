@@ -1,4 +1,4 @@
-name: Zero Downtime Deployment to VPS
+name: Zero Downtime Deployment of Next App to VPS
 
 on:
   push:
