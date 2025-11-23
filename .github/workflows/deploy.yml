@@ -1,0 +1,90 @@
+name: Zero Downtime Deployment to VPS
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Deploy Calendar App to Server
+    runs-on: ubuntu-latest
+    env:
+      SERVICE_NAME: calendar-frontend
+      DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
+      PROXY_NETWORK: ${{ secrets.PROXY_NETWORK }}
+      GIT_BRANCH: ${{ github.ref_name }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to VPS
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          port: ${{ secrets.DEPLOY_PORT || 22 }}
+          script: |
+            set -euo pipefail
+
+            DEPLOY_PATH="${DEPLOY_PATH:-/opt/passport/calendar-frontend}"
+            SERVICE_NAME="${SERVICE_NAME:-calendar-frontend}"
+            PROXY_NETWORK="${PROXY_NETWORK:-web}"
+            GIT_BRANCH="${GIT_BRANCH:-main}"
+
+            echo "Deploying branch: ${GIT_BRANCH}"
+            echo "Target path: ${DEPLOY_PATH}"
+            echo "Service name: ${SERVICE_NAME}"
+            echo "Proxy network: ${PROXY_NETWORK}"
+
+            cd "${DEPLOY_PATH}"
+
+            # Ensure environment file exists
+            if [ ! -f ".env" ]; then
+              echo "Missing .env in ${DEPLOY_PATH}. Aborting."
+              exit 1
+            fi
+
+            # Ensure proxy network exists (used by existing reverse proxy)
+            docker network inspect "${PROXY_NETWORK}" >/dev/null 2>&1 || docker network create "${PROXY_NETWORK}"
+
+            echo "📥 Pulling latest code..."
+            git fetch --all
+            git reset --hard "origin/${GIT_BRANCH}"
+
+            echo "🔨 Building new image..."
+            docker compose build --no-cache "${SERVICE_NAME}"
+
+            echo "⚡ Starting new app instance alongside old one..."
+            docker compose up -d --scale "${SERVICE_NAME}"=2 --no-recreate
+
+            echo "⏳ Waiting for new container to become healthy..."
+            sleep 15
+            if ! docker ps --filter "name=${SERVICE_NAME}" --filter "health=healthy" | grep -q "${SERVICE_NAME}"; then
+              echo "⚠️  New container not healthy yet, waiting 15s more..."
+              sleep 15
+            fi
+
+            echo "♻️  Removing old container, keeping new one..."
+            docker compose up -d --scale "${SERVICE_NAME}"=1 --remove-orphans
+
+            echo "🧹 Cleaning up unused images..."
+            docker image prune -f
+
+            echo "✅ Deployment complete!"
+            docker compose ps
+            docker system df
+
+      - name: Notify deployment status
+        if: always()
+        run: |
+          if [ "${{ job.status }}" == "success" ]; then
+            echo "✅ Deployment successful!"
+          else
+            echo "❌ Deployment failed!"
+            exit 1
+          fi

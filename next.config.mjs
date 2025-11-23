@@ -11,6 +11,8 @@ const nextConfig = {
     // Use Next image optimizer for local assets; add remotePatterns if loading external hosts.
     unoptimized: false,
   },
+  // Produce a standalone server output for lean Docker images.
+  output: 'standalone',
   turbopack: {},
   webpack(config) {
     config.module.rules.push({
