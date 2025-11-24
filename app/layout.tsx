@@ -2,16 +2,22 @@ import type { Metadata, Viewport } from 'next'
 import Script from 'next/script'
 import { Playfair_Display } from 'next/font/google'
 import './globals.css'
-import Footer from '@/components/common/calendar/components/footer'
 import ServiceWorkerRegister from '@/components/common/pwa/service-worker-register'
+import dynamic from 'next/dynamic'
+
+const Footer = dynamic(() => import('@/components/common/calendar/components/footer'), {
+  loading: () => null,
+})
 
 const siteUrl = 'https://ethiopian-calendar.app'
 const siteName = 'Ethiopian Calendar Converter'
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
+  weight: ['400', '700'], // limit weights to reduce font payload
   variable: '--font-playfair',
   display: 'swap',
+  preload: true,
 })
 
 export const metadata: Metadata = {
@@ -112,6 +118,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <link rel="preconnect" href="https://analytics.passport.et" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://analytics.passport.et" />
+        <link
+          rel="preload"
+          as="image"
+          href="/shader_bg.svg"
+          type="image/svg+xml"
+          media="(min-width: 768px)"
+        />
         <Script
           id="umami-analytics"
           src="https://analytics.passport.et/script.js"
@@ -126,7 +141,7 @@ export default function RootLayout({
         {/* Global shader background behind all pages */}
         <div
           aria-hidden
-          className="pointer-events-none fixed inset-0 -z-10 w-full bg-[url('/shader_bg.svg')] bg-top bg-no-repeat bg-cover"
+          className="pointer-events-none fixed inset-0 -z-10 w-full bg-top bg-no-repeat bg-cover md:bg-[url('/shader_bg.svg')]"
         />
         <main id="main" className="relative z-0 w-full min-h-screen">
           {children}

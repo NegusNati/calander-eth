@@ -9,8 +9,7 @@ export function ServiceWorkerRegister() {
     if (typeof window === 'undefined' || !('serviceWorker' in navigator)) return
 
     const disabled = process.env.NEXT_PUBLIC_DISABLE_SW === 'true'
-    const isLocal = ['localhost', '127.0.0.1'].includes(window.location.hostname)
-    const isEnabledEnv = process.env.NODE_ENV === 'production' || isLocal
+    const isEnabledEnv = process.env.NODE_ENV === 'production'
     if (disabled || !isEnabledEnv) return
 
     let mounted = true

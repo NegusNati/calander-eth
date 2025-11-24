@@ -20,7 +20,12 @@ import {
 import {  Select, SelectContent, SelectItem, SelectTrigger, SelectValue  } from '@/components/ui/select'
 import Container from '@/components/ui/container'
 import { Button } from '../button'
-import AdSlot from '@/components/ui/ad-slot'
+import dynamic from 'next/dynamic'
+
+const AdSlot = dynamic(() => import('@/components/ui/ad-slot'), {
+  ssr: false,
+  loading: () => null,
+})
 
 const YEAR_WINDOW = 60
 type IdleHandle = ReturnType<typeof setTimeout> | number
