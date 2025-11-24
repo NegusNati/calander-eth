@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next'
+import Script from 'next/script'
 import { Playfair_Display } from 'next/font/google'
 import './globals.css'
 import Footer from '@/components/common/calendar/components/footer'
@@ -110,6 +111,15 @@ export default function RootLayout({
 
   return (
     <html lang="en">
+      <head>
+        <Script
+          id="umami-analytics"
+          src="https://analytics.passport.et/script.js"
+          data-website-id="b6e704de-a131-4abf-9e93-a01241367cf4"
+          strategy="afterInteractive"
+          defer
+        />
+      </head>
       <body
         className={`${playfair.className} font-sans antialiased bg-gradient-to-b from-brand-1 to-background`}
       >
