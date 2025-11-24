@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     locale: 'en_US',
     images: [
       {
-        url: '/placeholder.jpg',
+        url: '/api/og',
         width: 1200,
         height: 630,
         alt: 'Ethiopian Calendar Converter interface with Geʼez numerals',
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
     title: 'Ethiopian Calendar Converter',
     description:
       'Convert dates between Ethiopian and Gregorian calendars and explore Geʼez numerals.',
-    images: ['/placeholder.jpg'],
+    images: ['/api/og'],
   },
   robots: {
     index: true,
